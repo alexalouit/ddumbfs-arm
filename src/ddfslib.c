@@ -512,7 +512,9 @@ blockaddr ddfs_get_node_addr(const unsigned char *node)
 
 nodeidx ddfs_hash2idx(const unsigned char *hash)
 {
-    nodeidx idx=ddfs_ntoh64(*(uint64_t *)hash)*ddfs->coef_hash2idx;
+    uint64_t v;
+    memcpy(v, hash, sizeof(64));
+    nodeidx idx=ddfs_ntoh64(v)*ddfs->coef_hash2idx;
     assert(idx<ddfs->c_node_count);
     return idx;
 }
